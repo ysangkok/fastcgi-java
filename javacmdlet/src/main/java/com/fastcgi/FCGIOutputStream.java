@@ -43,13 +43,13 @@ public class FCGIOutputStream
     public boolean rawWrite;
     public FCGIRequest request;
 
-    public FileOutputStream out;
+    public OutputStream out;
 
     /**
     * Creates a new output stream to manage fcgi prototcol stuff
     * @param out the output stream  buflen  length of buffer streamType
     */
-    public FCGIOutputStream(FileOutputStream outStream,
+    public FCGIOutputStream(OutputStream outStream,
         int bufLen, int streamType,
         FCGIRequest inreq) {
         out = outStream;

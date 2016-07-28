@@ -51,7 +51,7 @@ public class FCGIInputStream extends InputStream
     * Creates a new input stream to manage fcgi prototcol stuff
     * @param in the input stream  bufLen  length of buffer streamType
     */
-    public FCGIInputStream(FileInputStream inStream, int bufLen,
+    public FCGIInputStream(InputStream inStream, int bufLen,
         int streamType,
         FCGIRequest inReq) {
 
@@ -172,7 +172,7 @@ public class FCGIInputStream extends InputStream
                     setException(e);
                     return;
                 }
-                if (count == 0) {
+if (count <= 0) {
                     setFCGIError(FCGIGlobalDefs.def_FCGIProtocolError);
                     return;
                 }

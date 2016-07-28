@@ -1,0 +1,33 @@
+buildscript {
+    project.ext.roboVMVersion = "1.8.0"
+    project.ext.roboVMGradleVersion = "1.8.0"
+    repositories {
+        mavenCentral()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    }
+    dependencies {
+	classpath group: 'org.robovm', name: 'robovm-gradle-plugin', version: project.roboVMGradleVersion
+    }
+}
+project(':javacmdlet') {
+    apply plugin: 'robovm'
+    apply plugin: 'java'
+    repositories {
+        jcenter()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    }
+    ext {
+        mainClassName = "TinyFCGI"
+    }
+    robovm {
+        // Configure robovm
+        iosSignIdentity = ""
+        iosProvisioningProfile = ""
+        iosSkipSigning = true
+        stdoutFifo = ""
+        stderrFifo = ""
+    }
+    dependencies {
+        compile group: 'org.robovm', name: 'robovm-rt', version: project.roboVMVersion
+    }
+}

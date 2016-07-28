@@ -72,7 +72,7 @@ public class FCGIInterface
          * If not first call, and  we are cgi, we should be gone.
          */
         if (!acceptCalled){
-            isFCGI = System.getProperties().containsKey("FCGI_PORT");
+            isFCGI = System.getenv("FCGI_PORT") != null;
             acceptCalled = true;
             if (isFCGI) {
                 /*
@@ -81,7 +81,7 @@ public class FCGIInterface
                  */
                 startupProps = new Properties(System.getProperties());
                 String str =
-                    new String(System.getProperty("FCGI_PORT"));
+                    new String(System.getenv("FCGI_PORT"));
                 if (str.length() <= 0) {
                     return -1;
                 }
@@ -194,7 +194,7 @@ public class FCGIInterface
              */
             request.isBeginProcessed = false;
             request.inStream =
-                new FCGIInputStream((FileInputStream)request.
+                new FCGIInputStream(request.
                 socket.getInputStream(),
                 8192, 0, request);
             request.inStream.fill();
@@ -234,11 +234,11 @@ public class FCGIInterface
         }
         request.inStream.setReaderType(FCGIGlobalDefs.def_FCGIStdin);
         request.outStream
-            =  new FCGIOutputStream((FileOutputStream)request.socket.
+            =  new FCGIOutputStream(request.socket.
             getOutputStream(), 8192,
             FCGIGlobalDefs.def_FCGIStdout,request);
         request.errStream
-            = new FCGIOutputStream((FileOutputStream)request.socket.
+            = new FCGIOutputStream(request.socket.
             getOutputStream(), 512,
             FCGIGlobalDefs.def_FCGIStderr,request);
         request.numWriters = 2;
